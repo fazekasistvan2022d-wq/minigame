@@ -1,9 +1,15 @@
-export default function Square({ value, onSquareClick }) {
+export const LEFT = "left";
+export const RIGHT = "right";
+
+export function Square({ value, onSquareClick }) {
+    function handleContextMenu(event) {
+        event.preventDefault();
+        onSquareClick(RIGHT);
+    }
+
     return (
-        <div>
-            <button className="square" onClick={onSquareClick}>
-                {value}
-            </button>
-        </div>
+        <button className="square" onClick={() => onSquareClick(LEFT)} onContextMenu={handleContextMenu}>
+            {value}
+        </button>
     );
 }
