@@ -1,23 +1,15 @@
-import { useState } from "react";
-import { LEFT, RIGHT, Square } from "./Square";
-
-const PLAYER_X = "X";
-const PLAYER_O = "O";
+import { useRef, useState } from "react";
+import { PLAYER_O, PLAYER_X, Square } from "./Square";
 
 export default function Board() {
-    const [status, setStatus] = useState([undefined, undefined, undefined]);
+    const [status, setStatus] = useState(new Array(3).fill(undefined));
+    let lastPlayer = useRef();
+    function handleClick(idx, player) {
+        if (player !== PLAYER_O && player !== PLAYER_X) return;
+        if (lastPlayer.current === player) return;
 
-    // Update the game status, if the click is valid
-    //  - idx: index of the square
-    //  - mouseButton: left or right mouse button
-    function handleClick(idx, mouseButton) {
-        let newValue;
-        if (mouseButton === LEFT) {
-            newValue = PLAYER_X;
-        } else if (mouseButton === RIGHT) {
-            newValue = PLAYER_O;
-        } else return;
-        const newStatus = status.map((value, index) => (index === idx ? newValue : value));
+        lastPlayer.current = player;
+        const newStatus = status.map((value, index) => (index === idx ? player : value));
         setStatus(newStatus);
     }
 
