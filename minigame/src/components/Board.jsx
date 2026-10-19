@@ -4,7 +4,6 @@ import { PLAYER_O, PLAYER_X, Square } from "./Square";
 const BOARD_SIDES = 3;
 const BOARD_INDICES = [...Array(BOARD_SIDES).keys()];
 const CELL_COUNT = BOARD_SIDES * BOARD_SIDES;
-
 const WIN_POSITIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -21,27 +20,25 @@ export default function Board() {
     const [winner, setWinner] = useState();
     const [gameOver, setGameOver] = useState(false);
     const [lastCell, setLastCell] = useState();
+    const [xWins, setXWins] = useState(0);
+    const [oWins, setOWins] = useState(0);
+    const [draws, setDraws] = useState(0);
+
     let lastPlayer = useRef();
 
-    // Update the game status, ignore the click when it is not allowed
-    //  - idx: index of the square
-    //  - player: left or right mouse button
     function handleClick(idx, player) {
-        // ignore the invalid players (to make it foolproof)
         if (player !== PLAYER_O && player !== PLAYER_X) return;
-        // ignore the repeated steps
+
         if (lastPlayer.current === player) return;
 
-        // ignore the occupied cells
         if (status[idx]) return;
 
-        // ignore if gameOver
-        if (winner) return;
+        if (gameOver) return;
 
-        // update the status
         lastPlayer.current = player;
         const newStatus = status.map((value, index) => (index === idx ? player : value));
         win_check(newStatus, player);
+
         console.log(newStatus);
         setStatus(newStatus);
         setLastCell(idx);
@@ -58,10 +55,16 @@ export default function Board() {
         const isGameOver = win_array.some((value) => value);
         if (isGameOver) {
             setWinner(player);
+            if (player === PLAYER_X) {
+                setXWins((wins) => wins + 1);
+            } else {
+                setOWins((wins) => wins + 1);
+            }
             setGameOver(true);
             return;
         }
         if (newStatus.every((cell) => cell)) {
+            setDraws((count) => count + 1);
             setGameOver(true);
         }
     }
@@ -93,6 +96,9 @@ export default function Board() {
             {gameOver && winner && <div>`Game over! {winner} won`</div>}
             {gameOver && !winner && <div>Draw! No winner</div>}
             {gameOver && <button onClick={handlePlayAgain}>Reset</button>}
+            <div>X's wins: {xWins}</div>
+            <div>O's wins: {oWins}</div>
+            <div>Draws: {draws}</div>
         </div>
     );
 }
