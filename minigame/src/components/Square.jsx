@@ -1,7 +1,9 @@
-export default function Square(prop) {
+export default function Square({ value, onSquareClick }) {
     return (
         <div>
-            <button className="square">{prop.value}</button>
+            <button className="square" onClick={onSquareClick}>
+                {value}
+            </button>
         </div>
     );
 }
