@@ -1,15 +1,22 @@
 import { useState } from "react";
-import heroImg from "./assets/hero.png";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
 import Board from "./components/Board.jsx";
 import "./App.css";
 
 function App() {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
     return (
-        <div>
+        <main className={`app ${isDarkMode ? "dark" : "light"}`}>
+            <button
+                className="theme-toggle"
+                type="button"
+                onClick={() => setIsDarkMode((darkMode) => !darkMode)}
+                aria-pressed={isDarkMode}
+            >
+                Switch to {isDarkMode ? "light" : "dark"} mode
+            </button>
             <Board />
-        </div>
+        </main>
     );
 }
 
