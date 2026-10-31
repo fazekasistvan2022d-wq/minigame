@@ -1,5 +1,13 @@
 .board-row {
     display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.turn-indicator {
+    margin: 0 0 12px;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .square {
