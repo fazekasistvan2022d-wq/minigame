@@ -24,7 +24,7 @@ export default function Board() {
     const [xWins, setXWins] = useState(0);
     const [oWins, setOWins] = useState(0);
     const [draws, setDraws] = useState(0);
-
+ 
     function handleClick(idx, player) {
         if (player !== PLAYER_O && player !== PLAYER_X) return;
 
