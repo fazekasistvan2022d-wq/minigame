@@ -26,7 +26,7 @@ function App() {
                 onClick={() => setIsDarkMode((darkMode) => !darkMode)}
                 aria-pressed={isDarkMode}
             >
-                Switch to {isDarkMode ? "light" : "dark"} mode
+                Switch to {isDarkMode ? "light" : "dark"} mode.
             </button>
             <Board />
         </main>
