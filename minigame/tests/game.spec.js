@@ -17,7 +17,24 @@ test.beforeEach(async ({ page }) => {
         texts = await squares.nth(0).textContent();
         await expect(texts).toBe("X");
 
-        await squares.nth(1).click();
+        await squares.nth(1).click({ button: "right" });
         texts = await squares.nth(1).textContent();
         await expect(texts).toBe("O");
+    }),
+    test("Same player two times in a row", async ({ page }) => {
+        const squares = page.locator(".square");
+        let texts;
+        texts = await squares.nth(0).textContent();
+        await expect(texts).toBe("");
+        texts = await squares.nth(0).textContent();
+        await expect(texts).toBe("");
+    }),
+    test("draw game", async ({ page }) => {
+        await page.getByText("Draw! No Winner");
+    }),
+    test("X wins", async ({ page }) => {
+        await page.getByText("Game over! X won");
+    }),
+    test("O wins", async ({ page }) => {
+        await page.getByText("Game over! O won");
     }));
