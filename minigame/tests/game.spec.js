@@ -11,6 +11,7 @@ test.beforeEach(async ({ page }) => {
 }),
     test("players take turns", async ({ page }) => {
         const squares = page.locator(".square");
+
         let texts;
 
         await squares.nth(0).click();
