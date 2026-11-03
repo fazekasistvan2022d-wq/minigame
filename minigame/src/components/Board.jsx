@@ -24,7 +24,7 @@ export default function Board() {
     const [xWins, setXWins] = useState(0);
     const [oWins, setOWins] = useState(0);
     const [draws, setDraws] = useState(0);
- 
+
     function handleClick(idx, player) {
         if (player !== PLAYER_O && player !== PLAYER_X) return;
 
@@ -96,7 +96,7 @@ export default function Board() {
                     })}
                 </div>
             ))}
-            {gameOver && winner && <div>Game over! Player {winner} won</div>}
+            {gameOver && winner && <div>Game over! {winner} won</div>}
             {gameOver && !winner && <div>Draw! No winner</div>}
             {gameOver && <button onClick={handlePlayAgain}>Reset</button>}
             <div>X's wins: {xWins}</div>
